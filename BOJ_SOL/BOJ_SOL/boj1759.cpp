@@ -7,6 +7,7 @@ char arr[26];
 bool chkArr[26];
 string str;
 vector<string> result;
+
 void solution(int c, int n, int cnt, int start, int mCnt, int jCnt) {
 	if (cnt == n) {
 		if (mCnt >= 1 && jCnt >= 2) {
