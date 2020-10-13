@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="swea2112.cpp">
+    <ClCompile Include="swea2115.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
