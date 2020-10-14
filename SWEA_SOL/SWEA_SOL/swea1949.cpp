@@ -1,5 +1,4 @@
 #include <iostream>
-#include <stack>
 using namespace std;
 
 int N, K;
@@ -10,66 +9,35 @@ int maxSize = 0;
 int dx[4] = { -1, 0, 1, 0 };
 int dy[4] = { 0, -1, 0, 1 };
 
-void solution(int x, int y, int val, int digCnt) {
-	stack<pair<int, int>> st;
-	st.push(pair<int, int>(x, y));
-
-	int digX = -1;
-	int digY = -1;
-
-	while (!st.empty()) {
-		bool chgYn = false;
-		for (int i = 0; i < 4; i++) {
-			int next_x = st.top().first + dx[i];
-			int next_y = st.top().second + dy[i];
-
-			if (next_x < 0 || next_x >= N || next_y < 0 || next_y >= N) {
-				continue;
-			}
-
-			if (chkArr[next_x][next_y]) {
-				continue;
-			}
-
-			if (arr[next_x][next_y] >= val && digCnt == 0) {
-				int gap = arr[next_x][next_y] - val;
-				if (gap >= K) {
-					continue;
-				}
-				chkArr[next_x][next_y] = true;
-				st.push(pair<int, int>(next_x, next_y));
-				val--;
-				digCnt++;
-				digX = next_x;
-				digY = next_y;
-				chgYn = true;
-				break;
-			}
-			else if (arr[next_x][next_y] < val) {
-				chkArr[next_x][next_y] = true;
-				st.push(pair<int, int>(next_x, next_y));
-				val = arr[st.top().first][st.top().second];
-				chgYn = true;
-				break;
-			}
-		}
-		if (!chgYn) {
-			if (digX == st.top().first && digY == st.top().second) {
-				digX = -1;
-				digY = -1;
-				digCnt = 0;
-			}
-			chkArr[st.top().first][st.top().second] = false;
-			if (maxSize < st.size()) {
-				maxSize = st.size();
-			}
-			st.pop();
-		}
-
-		if (x == st.top().first && y == st.top().second) {
-			break;
-		}
+void solution(int x, int y, int cnt, int digCnt) {
+	chkArr[x][y] = true;
+	if (maxSize < cnt) {
+		maxSize = cnt;
 	}
+	
+	for (int i = 0; i < 4; i++) {
+		int next_x = x + dx[i];
+		int next_y = y + dy[i];
+
+		if (next_x < 0 || next_x >= N || next_y < 0 || next_y >= N) {
+			continue;
+		}
+
+		if (chkArr[next_x][next_y]) {
+			continue;
+		}
+
+		if (arr[x][y] > arr[next_x][next_y]) {
+			solution(next_x, next_y, cnt + 1, digCnt);
+		}
+		else if (arr[next_x][next_y] - arr[x][y] < K && digCnt == 0) {
+			int tmp = arr[next_x][next_y];
+			arr[next_x][next_y] = arr[x][y] - 1;
+			solution(next_x, next_y, cnt + 1, digCnt + 1);
+			arr[next_x][next_y] = tmp;
+		}
+ 	}
+	chkArr[x][y] = false;
 }
 
 int main() {
@@ -78,9 +46,9 @@ int main() {
 
 	int T;
 	cin >> T;
-
-	int maxVal = 0;
+	
 	for (int t = 1; t <= T; t++) {
+		int maxVal = 0;
 		//ÀÔ·ÂºÎ
 		cin >> N >> K;
 		for (int i = 0; i < N; i++) {
@@ -98,10 +66,8 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				if (arr[i][j] == maxVal) {
-					chkArr[i][j] = true;
-					solution(i, j, arr[i][j], 0);
-					chkArr[i][j] = false;
-					
+					solution(i, j, 1, 0);
+
 					if (result < maxSize) {
 						result = maxSize;
 					}
@@ -109,6 +75,7 @@ int main() {
 			}
 		}
 
-		cout << result << '\n';
+		cout << '#' << t << ' ' << result << '\n';
+		maxSize = 0;
 	}
 }
