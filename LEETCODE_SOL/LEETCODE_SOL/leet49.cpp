@@ -39,7 +39,7 @@ int main() {
     vector<string> strs = { "eat","tea","tan","ate","nat","bat" };
     Solution solution;
     vector<vector<string>> answer = solution.groupAnagrams(strs);
-    
+
     for (int i = 0; i < answer.size(); i++) {
         for (int j = 0; j < answer[i].size(); j++) {
             cout << answer[i][j] << ' ';
