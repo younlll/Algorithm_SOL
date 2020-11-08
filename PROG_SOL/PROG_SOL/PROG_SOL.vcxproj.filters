@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="prog42861.cpp">
+    <ClCompile Include="prog42884.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
