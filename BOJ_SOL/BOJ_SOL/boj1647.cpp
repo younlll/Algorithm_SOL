@@ -23,6 +23,7 @@ public:
 	}
 };
 
+//부모노드 구하기
 int getParent(int x) {
 	if (parent[x] == x) {
 		return x;
@@ -30,19 +31,22 @@ int getParent(int x) {
 	return parent[x] = getParent(parent[x]);
 }
 
+//부모노드 찾기
 bool findParent(int a, int b) {
 	a = getParent(a);
 	b = getParent(b);
-	if (a == b) {
+	if (a == b) {	//두 노드의 부모가 같은 경우
 		return true;
 	}
 	return false;
 }
 
+//두 노드의 부모 합치기
 void unionParent(int a, int b) {
 	a = getParent(a);
 	b = getParent(b);
 
+	//구한 부모노드 중 더 작은 값으로 합친다
 	if (a < b) {
 		parent[b] = a;
 	}
@@ -78,11 +82,13 @@ int main() {
 		//부모가 다른 경우(사이클이 발생하지 않는 경우)
 		if (!findParent(vc[i].node[0], vc[i].node[1])) {
 			sum += vc[i].distance;
-			prev = vc[i].distance;
+			prev = vc[i].distance;	//가장 마지막에 연결된 간선 비용이 가장 큰 비용이다
 			unionParent(vc[i].node[0], vc[i].node[1]);
 		}
 	}
 
+	//가장 큰 비용으로 연결된 거리를 끊어 마을을 두개로 분리
+	//최소비용으로 두개의 마을을 관리할 수 있다
 	cout << sum-prev << '\n';
 
 	return 0;
