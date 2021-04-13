@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="bubbleSort.cpp">
+    <ClCompile Include="insertionSort.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
