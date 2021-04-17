@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sortFunctionComprehendDesc.cpp">
+    <ClCompile Include="heapSort.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
