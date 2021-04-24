@@ -23,8 +23,8 @@ SHARK_INFO shark;
 void findFish() {
 	queue<pair<int, int>> Queue;
 	queue<int> Qdist;
-	bool chkMap[MAX][MAX];
-
+	bool chkMap[MAX][MAX] = { false, };
+	bool flag = false;
 	int Min = INF;
 	int minX = INF, minY = INF;
 	Queue.push({ shark.x, shark.y });
@@ -49,6 +49,9 @@ void findFish() {
 			if (map[nx][ny] > shark.s) {
 				continue;
 			}
+			if (!chkMap[nx][ny] && Min < ndist) {
+				continue;
+			}
 			if (!chkMap[nx][ny]) {
 				if (map[nx][ny] == shark.s || map[nx][ny] == 0) {
 					Queue.push({ nx, ny });
@@ -60,16 +63,19 @@ void findFish() {
 						Min = ndist;
 						minX = nx;
 						minY = ny;
+						flag = true;
 					}
 					else if (Min == ndist) {
 						if (minX > nx) {
 							minX = nx;
 							minY = ny;
+							flag = true;
 						}
 						else if (minX == nx) {
 							if (minY > ny) {
 								minX = nx;
 								minY = ny;
+								flag = true;
 							}
 						}
 					}
@@ -78,9 +84,11 @@ void findFish() {
 		}
 	}
 
-	shark.x = minX;
-	shark.y = minY;
-	answer += Min;
+	if (flag) {
+		shark.x = minX;
+		shark.y = minY;
+		answer += Min;
+	}
 }
 
 void solution() {
