@@ -25,7 +25,7 @@ void chkArea(int len) {
 					int cx = Queue.front().first;
 					int cy = Queue.front().second;
 					sum += map[cx][cy];
-;					Queue.pop();
+					Queue.pop();
 
 					for (int k = 0; k < 4; k++) {
 						int nx = cx + dx[k];
