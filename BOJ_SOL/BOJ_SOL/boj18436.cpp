@@ -22,7 +22,7 @@ void update(int start, int end, int node, int index, int dif) {
 	}
 	
 	tree[node] += dif;
-	
+
 	if (start == end) {
 		return;
 	}
@@ -66,15 +66,8 @@ int main() {
 		int a, b, c;
 		cin >> a >> b >> c;
 		if (a == 1) {
-			/*
-			* 바뀔 숫자의 홀수/짝수인 경우가 기존과 같다면 update 진행을 하지 않고
-			* 다른 경우만 진행
-			* 홀수로 변경되는 경우, +1
-			* 짝수로 변경되는 경우, -1
-			* 이렇게 생각해서 udpate를 만들었는데.. 주어진 테스트케이스 말고 계속 틀리는거 보면
-			* update가 잘 안되는거 같네요ㅠㅠ
-			*/
 			if (vc[b] != c % 2) {
+				vc[b] = c % 2;	/////////// 기존 값을 비교하는데 홀수 변경된 경우를 안바꿔줘서 틀렸던 것...ㅠㅠㅠㅠ
 				c = c % 2 == 1 ? 1 : -1;
 				update(1, N, 1, b, c);
 			}
