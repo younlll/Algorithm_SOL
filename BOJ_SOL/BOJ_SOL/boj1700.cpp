@@ -1,59 +1,51 @@
 #include <iostream>
-#include <algorithm>
-#include <vector>
+
+#define MAX 500
 
 using namespace std;
 
-int N, M;
-vector<int> arc;
-vector<int> mTap;
-int answer = 0;
+int N, M, answer;
+int map[MAX][MAX];
+int arr[MAX][MAX];
+
+int dx[] = { 0, 0, -1, 1 };
+int dy[] = { -1, 1, 0, 0 };
+
+int solution(int x, int y) {
+    if (x == N - 1 && y == M - 1) {
+        return 1;
+    }
+    if (arr[x][y] != -1) {
+        return arr[x][y];
+    }
+
+    arr[x][y] = 0;
+
+    for (int i = 0; i < 4; i++) {
+        int next_x = x + dx[i];
+        int next_y = y + dy[i];
+        if (next_x >= 0 && next_x < N && next_y >= 0 && next_y < M) {
+            if (map[next_x][next_y] < map[next_x][next_y]) {
+                arr[x][y] = arr[x][y] + solution(next_x, next_y);
+            }
+        }
+    }
+
+    return arr[x][y];
+}
 
 int main() {
-	cin >> N >> M;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-	int tmp;
-	for (int i = 0; i < M; i++) {
-		cin >> tmp;
-		arc.push_back(tmp);
-	}
+    cin >> N >> M;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            cin >> map[i][j];
+            arr[i][j] = -1;
+        }
+    }
 
-	vector<int>::iterator iter;
-	for (int i = 0; i < M; i++) {
-		iter = find(mTap.begin(), mTap.end(), arc[i]);
-
-		//멀티탭에 남는 구멍이 있는 경우
-		if (mTap.size() < N) {
-			// 현재 멀티탭에 꽂혀있지 않는 경우
-			if (iter == mTap.end()) {
-				mTap.push_back(arc[i]);
-			}
-			continue;
-		}
-		
-		//멀티탭에 남는 구멍이 없는 경우
-		if (mTap.size() >= N) {
-			// 현재 멀티탭에 꽂혀있지 않는 경우
-			if (iter == mTap.end()) {
-				int idx = 0, num = 0;
-				// 뒤에 사용되지 않을 전자기기이거나 가장 나중에 쓰이는 전자기기를 뽑는다
-				for (int j = 0; j < N; j++) {
-					int cnt = 0;
-					for (int k = i + 1; k < M; k++) {
-						if (arc[k] == mTap[j]) {
-							break;
-						}
-						cnt++;
-					}
-					if (cnt > idx) {
-						num = j;
-						idx = cnt;
-					}
-				}
-				answer++;
-				mTap[num] = arc[i];
-			}
-		}
-	}
-	cout << answer << '\n';
+    answer = solution(0, 0);
+    cout << answer << '\n';
 }
