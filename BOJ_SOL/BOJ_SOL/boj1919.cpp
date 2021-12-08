@@ -12,5 +12,20 @@ int main() {
 	string str1, str2;
 	cin >> str1 >> str2;
 
-	for(char c : )
+	int arr[27] = {};
+	for (char c : str1) {
+		arr[c - 'a']++;
+	}
+
+	int cnt = 0;
+	for (char c : str2) {
+		if (arr[c - 'a'] > 0) {
+			arr[c - 'a']--;
+			cnt++;
+		}
+	}
+
+	cout << str1.length() + str2.length() - (2 * cnt) << '\n';
+
+	return 0;
 }
