@@ -1,0 +1,17 @@
+package BOJ_SOL.BOJ_SOL.solved_with_java;
+
+import java.util.Scanner;
+
+public class boj2438_B3_220116 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int num = sc.nextInt();
+
+        for(int i = 0; i < num; i++) {
+            for(int j = 0; j <= i; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+}
