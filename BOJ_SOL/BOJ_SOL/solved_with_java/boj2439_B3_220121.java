@@ -1,7 +1,7 @@
 package BOJ_SOL.BOJ_SOL.solved_with_java;
 
 import java.util.Scanner;
-//
+////
 public class boj2439_B3_220121 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
