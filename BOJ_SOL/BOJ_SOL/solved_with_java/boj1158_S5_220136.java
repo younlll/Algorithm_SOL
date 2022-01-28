@@ -8,29 +8,29 @@ import java.io.OutputStreamWriter;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class boj1158_S5_220136 {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        String str = br.readLine();
-        int N = Integer.parseInt(str.charAt(0) + "");
-        int K = Integer.parseInt(str.charAt(2) + "");
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int K = Integer.parseInt(st.nextToken());
 
         Queue<Integer> queue = new LinkedList<>();
-        LinkedList<Integer> list = new LinkedList<>();
-        ListIterator<Integer> cursor = list.listIterator();
         for(int i = 1; i <= N; i++) {
             queue.offer(i);
         }
 
         int cnt = 1;
-        bw.write('<');
+        StringBuilder sb = new StringBuilder();
+        sb.append("<");
         while(!queue.isEmpty()) {
             if(cnt == K) {
-                bw.write(queue.poll().toString());
+                sb.append(queue.poll());
                 if(!queue.isEmpty()) {
-                    bw.write(", ");
+                    sb.append(", ");
                 }
                 cnt = 1;
                 continue;
@@ -38,8 +38,11 @@ public class boj1158_S5_220136 {
             queue.offer(queue.poll());
             cnt++;
         }
-        bw.write(">\n");
+        sb.append(">");
+
+        bw.write(sb.toString() + '\n');
         bw.flush();
         bw.close();
+        br.close();
     }
 }
