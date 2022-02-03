@@ -1,3 +1,5 @@
+package BOJ_SOL.BOJ_SOL.solved_with_java;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
